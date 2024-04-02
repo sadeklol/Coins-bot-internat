@@ -1,2 +1,2 @@
 # bot-coins-internat
-Ceci est le bot coins de internat officiel !
+Ceci est le bot coins de internat officiel ! (askip)
