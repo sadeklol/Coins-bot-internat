@@ -20,7 +20,7 @@ module.exports = (RosaCoins, oldState, newState) => {
 
     const {guildManager, teamManager} = managers.getDataUserWithGuildAndUser(newState.guild, newState.member.user, {});
 
-    if (guildManager && teamManager && newState.channel && newState.channel.id === guildManager.channelVoiceTeam) {
+    if (guildManager && teamManager && newState.channel && guildManager.channelVoiceTeam && newState.channel.id === guildManager.channelVoiceTeam) {
         const keyTemVoice = `${newState.guild.id}-${teamManager.teamName}`;
         if (tempChannel.has(keyTemVoice)) {
             const voiceChannel = newState.guild.channels.resolve(tempChannel.get(keyTemVoice));
@@ -64,7 +64,7 @@ module.exports = (RosaCoins, oldState, newState) => {
         }).catch((err) => {})
     }
 
-    const channelVoiceTeam = newState.guild.channels.resolve(guildManager.channelVoiceTeam);
+    const channelVoiceTeam = guildManager ? newState.guild.channels.resolve(guildManager.channelVoiceTeam) : null;
 
     if (channelVoiceTeam && guildManager && oldState.channel && oldState.channel.parent && channelVoiceTeam.parent && oldState.channel.parent.id === channelVoiceTeam.parent.id && oldState.channel.id !== channelVoiceTeam.id && teamManager) {
         const keyTemVoice = `${oldState.guild.id}-${teamManager.teamName}`;
